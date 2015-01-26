@@ -1,0 +1,4 @@
+.DS_Store
+*.py[cdo]
+client_secrets.json
+credentials.dat

@@ -31,9 +31,10 @@ def summarize_spent(period_start):
             calendarId='primary',
             pageToken=page_token,
             timeMin=period_start.strftime('%Y-%m-%dT00:00:00+09:00'),
-            timeMax=period_end.strftime('%Y-%m-%dT00:00:00+09:00'),
+            timeMax=period_start.strftime('%Y-%m-%dT23:59:59+09:00'),
             ).execute()
-        for event in events['items']:
+        event_items = [event for event in events['items'] if 'updated' in event]
+        for event in sorted(event_items, key=lambda x:x['updated'], reverse=True):
             event_id = event['id'].split('_', 2)[0]
             if event_id in event_ids:
                 continue
@@ -82,4 +83,5 @@ def summarize_spent(period_start):
 
 
 if __name__ == '__main__':
+    summarize_spent(period_start=datetime.date.today()-datetime.timedelta(days=1))
     summarize_spent(period_start=datetime.date.today())

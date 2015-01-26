@@ -1,13 +1,21 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 #
-from __future__ import division, print_function, unicode_literals
+from __future__ import division, print_function, with_statement
 import time
 import datetime
+
+from clint.textui import indent, colored, puts
+from clint.textui import columns
+import textwrap
 
 import get_credential
 
 __author__ = 'www.kentaro.wada@gmail.com (Kentaro Wada)'
+
+
+def is_ascii(s):
+    return all(ord(c) < 128 for c in s)
 
 
 def summarize_spent(period_start):
@@ -54,14 +62,23 @@ def summarize_spent(period_start):
             summary.append(d['summary'])
             spent[d['summary']] = 0.0
         spent[d['summary']] += d['spent']
-    print('[Summarize Spent Time]')
-    print('** spent on ' + period_start.strftime('%Y-%m-%d') + ' **')
-    for (sm, sp) in sorted(spent.items(), key=lambda x:x[1], reverse=True):
-        print('{0:12}:\t{1:4}h'.format(sm, sp))
-    print('---------------------')
-    spsum = sum(t for (_, t) in spent.items())
-    print('sum         :\t{0:4}h'.format(spsum))
-    print('left        :\t{0:4}h'.format(24-spsum))
+
+    col = 20
+    print(colored.cyan('==> summarize of spent time'))
+    puts('spent on {}'.format(period_start.strftime('%Y-%m-%d')))
+    with indent(3, quote=colored.blue('.')):
+        puts('------------------------------------')
+        for (c1, c2) in sorted(spent.items(), key=lambda x:x[1], reverse=True):
+            width = 30
+            if is_ascii(c1):
+                c1 += ' ' * (width - len(c1))
+            else:
+                c1 += ' ' * (width - int(len(c1) * 2.))
+            puts(colored.green("{0} {1:4}h".format(c1.encode('utf-8'), c2)))
+        puts('------------------------------------')
+        spsum = sum(t for (_, t) in spent.items())
+        puts('sum' + ' '*(width-3) + ' {0:4}h'.format(spsum))
+        puts('left' + ' '*(width-4) + ' {0:4}h'.format(24-spsum))
 
 
 if __name__ == '__main__':

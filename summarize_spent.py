@@ -34,6 +34,7 @@ def summarize_spent(period_start):
             timeMax=period_start.strftime('%Y-%m-%dT23:59:59+09:00'),
             ).execute()
         event_items = [event for event in events['items'] if 'updated' in event]
+        event_ids += [event['id'].split('_', 2)[0] for event in events['items'] if event['status'] == 'cancelled']
         for event in sorted(event_items, key=lambda x:x['updated'], reverse=True):
             event_id = event['id'].split('_', 2)[0]
             if event_id in event_ids:

@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 #
 from __future__ import print_function
+
+import os
 import datetime
 import yaml
 import collections
@@ -22,7 +24,8 @@ def get_title_from_summary(summary):
 
 def change_events_color():
     # get colors data
-    with open('colors.yml', 'rb') as f:
+    fpath = os.path.expandvars('~')
+    with open(fpath + '/.events_colors.yml', 'rb') as f:
         colors_data = yaml.load(f)
 
     service = get_credential.credential("")

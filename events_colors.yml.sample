@@ -1,0 +1,11 @@
+colors:
+  purple: 3
+  orange: 6
+  blue: 9
+  green: 10
+
+color_rules:
+  purple: [pastime]
+  blue: [study, work]
+  orange: [univ]
+  green: [run]

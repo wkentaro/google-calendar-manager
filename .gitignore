@@ -2,3 +2,4 @@
 *.py[cdo]
 client_secrets.json
 credentials.dat
+events_colors.yml

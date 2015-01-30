@@ -24,7 +24,7 @@ def get_title_from_summary(summary):
 
 def change_events_color():
     # get colors data
-    fpath = os.path.expandvars('~')
+    fpath = os.path.expanduser('~')
     with open(fpath + '/.events_colors.yml', 'rb') as f:
         colors_data = yaml.load(f)
 

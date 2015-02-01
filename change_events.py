@@ -25,7 +25,7 @@ def get_title_from_summary(summary):
 def change_events():
     # get colors data
     fpath = os.path.expanduser('~')
-    with open(fpath + '/.events_colors.yml', 'rb') as f:
+    with open(fpath + '/.events_config.yml', 'rb') as f:
         config = yaml.load(f)
 
     service = get_credential.credential("")

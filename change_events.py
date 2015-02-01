@@ -26,7 +26,7 @@ def change_events():
     # get colors data
     fpath = os.path.expanduser('~')
     with open(fpath + '/.events_colors.yml', 'rb') as f:
-        colors_data = yaml.load(f)
+        config = yaml.load(f)
 
     service = get_credential.credential("")
     page_token = None
@@ -45,10 +45,11 @@ def change_events():
             if 'summary' not in event:
                 continue
             summary = event['summary'].lower()
-            for color, rules in colors_data['color_rules'].items():
+            summary = config['alias'].get(summary, summary)
+            for color, rules in config['color_rules'].items():
                 if summary in rules:
                     # change color
-                    event['colorId'] = colors_data['colors'][color]
+                    event['colorId'] = config['colors'][color]
                     break
             # change summary
             event['summary'] = summary.capitalize()

@@ -22,7 +22,7 @@ def get_title_from_summary(summary):
     return collections.Counter(titles).keys()[0]
 
 
-def change_events_color():
+def change_events():
     # get colors data
     fpath = os.path.expanduser('~')
     with open(fpath + '/.events_colors.yml', 'rb') as f:
@@ -47,8 +47,10 @@ def change_events_color():
             summary = event['summary'].lower()
             for color, rules in colors_data['color_rules'].items():
                 if summary in rules:
+                    # change color
                     event['colorId'] = colors_data['colors'][color]
                     break
+            # change summary
             event['summary'] = summary.capitalize()
             service.events().update(
                 calendarId='primary',
@@ -61,4 +63,4 @@ def change_events_color():
 
 
 if __name__ == '__main__':
-    change_events_color()
+    change_events()

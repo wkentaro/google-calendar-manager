@@ -1,11 +1,24 @@
+# DON'T CHANGE THIS
+# color correspondence
 colors:
   purple: 3
   orange: 6
   blue: 9
   green: 10
 
+# color rules
 color_rules:
   purple: [pastime]
   blue: [study, work]
   orange: [univ]
   green: [run]
+
+# set alias for quick input for summary
+alias:
+  pm: pastime
+  sd: study
+  uv: univ
+  sp: sleep
+  bt: bath
+  mv: move
+  dn: dinner

@@ -13,7 +13,7 @@ color_rules:
   orange: [univ]
   green: [run]
 
-# set alias for quick input for summary
+# set alias for quick input of summary
 alias:
   pm: pastime
   sd: study

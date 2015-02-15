@@ -16,7 +16,7 @@ def get_title_from_summary(summary):
 
     titles = []
     for content in contents:
-        title = content.split(':')[0]
+        title = content.split(':')[0].lower()
         titles.append(title)
 
     return collections.Counter(titles).keys()[0]
@@ -30,7 +30,6 @@ def change_events():
 
     service = get_credential.credential("")
     page_token = None
-    ids = []
     today = datetime.date.today()
     change_start = today - datetime.timedelta(days=2)
     change_end = today + datetime.timedelta(days=2)
@@ -45,7 +44,9 @@ def change_events():
             if 'summary' not in event:
                 continue
             summary = event['summary'].lower()
-            summary = config['alias'].get(summary, summary)
+            title = get_title_from_summary(summary)
+            summary = summary.replace(title,
+                config['alias'].get(title, title))
             for color, rules in config['color_rules'].items():
                 if summary in rules:
                     # change color

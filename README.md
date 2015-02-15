@@ -17,6 +17,7 @@ $ python summarize_spent.py
 You can change events attributes with your preferences.
 First, copy [events_config.yml.sample](https://github.com/wkentaro/google-calendar-manager/blob/master/events_config.yml.sample)
 as `~/.events_config.yml` and edit it. See documentation [here](#events-config) to more information.
+
 ```sh
 # change events config (colors & summary) 
 $ python change_events.py 
@@ -40,6 +41,7 @@ work: meeting with Eliza # example
 ### color_rules
 `color_rules` is for user who likes colored events.
 You can set summaries as list with each color.
+
 ```yml
 color_rules:
   COLOR_NAME1: [SUMMARY_NAME1, SUMMARY_NAME2]
@@ -54,6 +56,7 @@ color_rules:
 ### alias
 `alias` is for user who likes quick input of each events.
 You can set short name and its original name.
+
 ```yml
 alias:
   SHORT_NAME1: ORIGINAL_NAME1

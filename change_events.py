@@ -48,7 +48,7 @@ def change_events():
             summary = summary.replace(title,
                 config['alias'].get(title, title))
             for color, rules in config['color_rules'].items():
-                if summary in rules:
+                if title in rules:
                     # change color
                     event['colorId'] = config['colors'][color]
                     break

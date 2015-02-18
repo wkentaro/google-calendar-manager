@@ -6,9 +6,8 @@ import time
 import datetime
 
 from clint.textui import indent, colored, puts
-from clint.textui import columns
-import textwrap
 
+from change_events import get_title_from_summary
 import get_credential
 
 __author__ = 'www.kentaro.wada@gmail.com (Kentaro Wada)'
@@ -20,7 +19,6 @@ def is_ascii(s):
 
 def summarize_spent(period_start):
     """Summarize spent time with given period start"""
-    period_end = period_start + datetime.timedelta(days=1)
 
     service = get_credential.credential('')
 
@@ -49,23 +47,23 @@ def summarize_spent(period_start):
                 end = datetime.datetime.strptime(
                     event['end']['dateTime'][0:19], '%Y-%m-%dT%H:%M:%S')
                 end = float(time.mktime(end.timetuple()))
+                title = get_title_from_summary(event['summary'])
                 data.append({
-                    'summary': event['summary'].lower(),
+                    'title': title,
                     'spent': (end-start) / (60*60),
                     })
         page_token = events.get('nextPageToken')
         if not page_token:
             break
 
-    summary = []
+    title = []
     spent = {}
     for d in data:
-        if d['summary'] not in summary:
-            summary.append(d['summary'])
-            spent[d['summary']] = 0.0
-        spent[d['summary']] += d['spent']
+        if d['title'] not in title:
+            title.append(d['title'])
+            spent[d['title']] = 0.0
+        spent[d['title']] += d['spent']
 
-    col = 20
     print(colored.cyan('==> summarize of spent time'))
     puts('spent on {}'.format(period_start.strftime('%Y-%m-%d')))
     with indent(3, quote=colored.blue('.')):

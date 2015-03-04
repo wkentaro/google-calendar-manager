@@ -13,12 +13,7 @@ import get_credential
 
 def get_title_from_summary(summary):
     contents = summary.split(',')
-
-    titles = []
-    for content in contents:
-        title = content.split(':')[0].lower()
-        titles.append(title)
-
+    titles = [c.split(':')[0].lower() for c in contents]
     return collections.Counter(titles).keys()[0]
 
 
